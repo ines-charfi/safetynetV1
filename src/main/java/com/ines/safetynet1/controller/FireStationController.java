@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/firestation")
 public class FireStationController {
 
     private final FireStationService service;
@@ -16,17 +15,20 @@ public class FireStationController {
         this.service = service;
     }
 
-    @GetMapping("/all")
+    // Récupérer toutes les firestations
+    @GetMapping("/firestation/all")
     public List<FireStation> getAllFireStations() {
         return service.getAllFireStations();
     }
 
-    @PostMapping
+    // Créer une firestation
+    @PostMapping("/firestation")
     public FireStation addFireStation(@RequestBody FireStation fireStation) {
         return service.createFireStation(fireStation);
     }
 
-    @PutMapping
+    // Mettre à jour une firestation
+    @PutMapping("/firestation")
     public FireStation updateFireStation(@RequestParam String address,
                                          @RequestBody FireStation fireStation) {
         FireStation updated = service.updateFireStation(address, fireStation);
@@ -34,11 +36,17 @@ public class FireStationController {
         return updated;
     }
 
-    @DeleteMapping
+    // Supprimer une firestation
+    @DeleteMapping("/firestation")
     public String deleteFireStation(@RequestParam String address,
                                     @RequestParam String station) {
         boolean deleted = service.deleteFireStation(address, station);
         return deleted ? "FireStation supprimée !" : "FireStation introuvable !";
     }
-}
 
+    // Récupérer les numéros de téléphone par numéro de station
+    @GetMapping("/phoneAlert")
+    public List<String> phoneAlert(@RequestParam("firestation") String firestation) {
+        return service.getPhonesByStation(firestation);
+    }
+}

@@ -7,27 +7,28 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/person")
 public class PersonController {
 
     private final PersonService personService;
-    private String city;
 
     public PersonController(PersonService service) {
         this.personService = service;
     }
 
-    @GetMapping("/all")
+    // GET toutes les personnes
+    @GetMapping("/persons")
     public List<Person> getAllPersons() {
         return personService.getAllPersons();
     }
 
-    @PostMapping
+    // POST ajouter une personne
+    @PostMapping("/person")
     public Person addPerson(@RequestBody Person person) {
         return personService.createPerson(person);
     }
 
-    @PutMapping
+    // PUT modifier une personne
+    @PutMapping("/person")
     public Person updatePerson(@RequestParam String firstName,
                                @RequestParam String lastName,
                                @RequestBody Person person) {
@@ -36,21 +37,17 @@ public class PersonController {
         return updated;
     }
 
-    @DeleteMapping
+    // DELETE
+    @DeleteMapping("/person")
     public String deletePerson(@RequestParam String firstName,
                                @RequestParam String lastName) {
         boolean deleted = personService.deletePerson(firstName, lastName);
         return deleted ? "Person supprimée !" : "Person introuvable !";
     }
-    @GetMapping("/communityEmails")
+
+    // GET community email
+    @GetMapping("/communityEmail")
     public List<String> getByCommunityEmail(@RequestParam String city) {
-       
         return personService.getEmailsByCity(city);
     }
-    //Autre methode pour communityEmails
-    //Get an email list
-    //@RequestMapping(value = "communityEmail", method = RequestMethod.GET)
-    //public List<String> listeEmails(@RequestParam(name = "city") String city) {
-    //return personService. findAllEmailsByCity(city);
 }
-
