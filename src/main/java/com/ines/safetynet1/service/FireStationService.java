@@ -81,7 +81,7 @@ public class FireStationService {
     // FireStation Coverage
     public FireStationCoverageDto getResidentsByStation(int stationNumber) {
 
-        // 1. Trouver toutes les adresses couvertes par cette station
+        // Trouver toutes les adresses couvertes par cette station
         List<String> addresses = new ArrayList<>();
         for (FireStation fs : dataHandler.getData().getFirestations()) {
             if (Integer.parseInt(fs.getStation()) == stationNumber) {
@@ -125,7 +125,7 @@ public class FireStationService {
             }
         }
 
-        // 3. Construire le DTO final
+        // Construire le DTO final
         FireStationCoverageDto coverageDto = new FireStationCoverageDto();
         coverageDto.setResidents(residents);
         coverageDto.setAdults(adults);
