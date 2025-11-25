@@ -2,13 +2,14 @@ package com.ines.safetynet1.service;
 
 import com.ines.safetynet1.model.MedicalRecord;
 import com.ines.safetynet1.repository.MedicalRecordRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class MedicalRecordService {
-
+@Autowired
     private final MedicalRecordRepository repository;
 
     public MedicalRecordService(MedicalRecordRepository repository) {

@@ -2,6 +2,7 @@ package com.ines.safetynet1.repository;
 import com.ines.safetynet1.repository.DataHandler;
 import com.ines.safetynet1.model.MedicalRecord;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
@@ -9,6 +10,7 @@ import java.util.Optional;
 @Repository
 public class MedicalRecordRepository {
 
+@Autowired
     private final DataHandler dataHandler;
 
     public MedicalRecordRepository(DataHandler dataHandler) {
@@ -22,8 +24,8 @@ public class MedicalRecordRepository {
 
     public Optional<MedicalRecord> findByName(String firstName, String lastName) {
         return dataHandler.getData().getMedicalrecords().stream()
-                .filter(r -> r.getFirstName().equalsIgnoreCase(firstName)
-                        && r.getLastName().equalsIgnoreCase(lastName))
+                .filter(r -> r.getFirstName().equals(firstName)
+                        && r.getLastName().equals(lastName))
                 .findFirst();
     }
 

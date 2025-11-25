@@ -4,6 +4,7 @@ import com.ines.safetynet1.repository.DataHandler;
 import com.ines.safetynet1.model.Person;
 import com.ines.safetynet1.model.Data;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.stream.Collectors;
 
 @Repository
 public class PersonRepository {
-
+@Autowired
     private final DataHandler dataHandler;
 
     public PersonRepository(DataHandler dataHandler) {
@@ -25,8 +26,8 @@ public class PersonRepository {
 
     public Optional<Person> findByName(String firstName, String lastName) {
         return dataHandler.getData().getPersons().stream()
-                .filter(p -> p.getFirstName().equalsIgnoreCase(firstName)
-                        && p.getLastName().equalsIgnoreCase(lastName))
+                .filter(p -> p.getFirstName().equals(firstName)
+                        && p.getLastName().equals(lastName))
                 .findFirst();
     }
 
@@ -50,13 +51,13 @@ public class PersonRepository {
 
     public boolean delete(String firstName, String lastName) {
         return dataHandler.getData().getPersons().removeIf(p ->
-                p.getFirstName().equalsIgnoreCase(firstName) &&
-                        p.getLastName().equalsIgnoreCase(lastName)
+                p.getFirstName().equals(firstName) &&
+                        p.getLastName().equals(lastName)
         );
     }
     public List<Person> findByCity(String city) {
         return dataHandler.getData().getPersons().stream()
-                .filter(p -> p.getCity().equalsIgnoreCase(city))
+                .filter(p -> p.getCity().equals(city))
                 .collect(Collectors.toList());
     }
 

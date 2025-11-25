@@ -3,6 +3,7 @@ package com.ines.safetynet1.repository;
 import com.ines.safetynet1.repository.DataHandler;
 import com.ines.safetynet1.model.FireStation;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.Optional;
 @Data
 @Repository
 public class FireStationRepository {
-
+@Autowired
     private final DataHandler dataHandler;
 
     public FireStationRepository(DataHandler dataHandler) {
@@ -23,7 +24,7 @@ public class FireStationRepository {
 
     public Optional<FireStation> findByAddress(String address) {
         return dataHandler.getData().getFirestations().stream()
-                .filter(fs -> fs.getAddress().equalsIgnoreCase(address))
+                .filter(fs -> fs.getAddress().equals(address))
                 .findFirst();
     }
 
@@ -43,8 +44,8 @@ public class FireStationRepository {
 
     public boolean delete(String address, String station) {
         return dataHandler.getData().getFirestations().removeIf(fs ->
-                fs.getAddress().equalsIgnoreCase(address) &&
-                        fs.getStation().equalsIgnoreCase(station)
+                fs.getAddress().equals(address) &&
+                        fs.getStation().equals(station)
         );
     }
 }
