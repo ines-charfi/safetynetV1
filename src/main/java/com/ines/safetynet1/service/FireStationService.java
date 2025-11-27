@@ -61,13 +61,13 @@ public class FireStationService {
     //  Fire by Address
     public FireAddressDto getFireByAddress(String address) {
         String stationNumber = dataHandler.getData().getFirestations().stream()
-                .filter(f -> f.getAddress().equalsIgnoreCase(address))
+                .filter(f -> f.getAddress().equals(address))
                 .map(FireStation::getStation)
                 .findFirst()
                 .orElse("Inconnu");
 
         List<PersonInfoDto> residents = dataHandler.getData().getPersons().stream()
-                .filter(p -> p.getAddress().equalsIgnoreCase(address))
+                .filter(p -> p.getAddress().equals(address))
                 .map(this::toPersonInfoDto)
                 .collect(Collectors.toList());
 

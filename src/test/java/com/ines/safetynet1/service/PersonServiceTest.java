@@ -1,7 +1,6 @@
-package com.ines.safetynet1;
+package com.ines.safetynet1.service;
 import com.ines.safetynet1.model.Person;
 import com.ines.safetynet1.repository.PersonRepository;
-import com.ines.safetynet1.service.PersonService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

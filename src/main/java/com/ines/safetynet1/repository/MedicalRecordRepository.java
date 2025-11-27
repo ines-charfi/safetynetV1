@@ -51,4 +51,7 @@ public class MedicalRecordRepository {
                         r.getLastName().equalsIgnoreCase(lastName)
         );
     }
+
+
+
 }

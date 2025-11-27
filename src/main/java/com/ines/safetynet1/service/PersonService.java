@@ -96,14 +96,14 @@ public class PersonService {
     public List<FloodStationDto> getFloodByStations(List<Integer> stationNumbers) {
         List<FloodStationDto> result = new ArrayList<>();
 
-        // 1. Récupérer toutes les adresses couvertes par les stations demandées
+        //  Récupérer toutes les adresses couvertes par les stations demandées
         List<String> addresses = dataHandler.getData().getFirestations().stream()
                 .filter(f -> stationNumbers.contains(Integer.parseInt(f.getStation())))
                 .map(FireStation::getAddress)
                 .distinct()
                 .collect(Collectors.toList());
 
-        // 2. Pour chaque adresse, créer le DTO foyer
+        //  Pour chaque adresse, créer le DTO foyer
         for (String address : addresses) {
             List<PersonInfoDto> residents = dataHandler.getData().getPersons().stream()
                     .filter(p -> p.getAddress().equalsIgnoreCase(address))
