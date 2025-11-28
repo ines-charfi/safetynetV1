@@ -106,8 +106,8 @@ public class FireStationService {
 
                 // Calcul âge
                 MedicalRecord record = dataHandler.getData().getMedicalrecords().stream()
-                        .filter(mr -> mr.getFirstName().equalsIgnoreCase(p.getFirstName())
-                                && mr.getLastName().equalsIgnoreCase(p.getLastName()))
+                        .filter(mr -> mr.getFirstName().equals(p.getFirstName())
+                                && mr.getLastName().equals(p.getLastName()))
                         .findFirst()
                         .orElse(null);
 
@@ -134,12 +134,11 @@ public class FireStationService {
         return coverageDto;
     }
 
-
     // Utility
     private PersonInfoDto toPersonInfoDto(Person p) {
         MedicalRecord record = dataHandler.getData().getMedicalrecords().stream()
-                .filter(mr -> mr.getFirstName().equalsIgnoreCase(p.getFirstName())
-                        && mr.getLastName().equalsIgnoreCase(p.getLastName()))
+                .filter(mr -> mr.getFirstName().equals(p.getFirstName())
+                        && mr.getLastName().equals(p.getLastName()))
                 .findFirst()
                 .orElse(null);
 

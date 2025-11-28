@@ -65,7 +65,7 @@ public class FireStationController {
             @RequestParam int stationNumber) {
         return fireStationService.getResidentsByStation(stationNumber);
     }
-    @GetMapping("/firestation/all")
+    @GetMapping("/firestation/full")
     @io.swagger.v3.oas.annotations.Operation(
             summary = "Récupère toutes les firestations",
             description = "Renvoie la liste complète des firestations avec leurs adresses et numéros"
