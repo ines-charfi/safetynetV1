@@ -76,6 +76,21 @@
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>2.6.0</version>
         </dependency>
+    <dependency>
+    <groupId>io.springfox</groupId>
+    <artifactId>springfox-swagger2</artifactId>
+    <version>3.0.0</version>
+</dependency>
+<dependency>
+<groupId>io.springfox</groupId>
+<artifactId>springfox-swagger-ui</artifactId>
+<version>3.0.0</version>
+</dependency>
+<dependency>
+<groupId>io.springfox</groupId>
+<artifactId>springfox-boot-starter</artifactId>
+<version>3.0.0</version>
+</dependency>
     </dependencies>
 
     <build>
@@ -112,32 +127,32 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.10</version>
+                <version>0.8.11</version>
                 <executions>
-                    <!-- instrumente tests unitaires -->
                     <execution>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
                     </execution>
-                    <!-- rapport HTML après tests unitaires -->
+
                     <execution>
                         <id>report</id>
                         <phase>test</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>
-                    </execution>
-                    <!-- rapport pour tests d'intégration -->
-                    <execution>
-                        <id>post-integration-test</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
+                        <configuration>
+                            <excludes>
+                                <!-- Exclure toutes les classes DTO -->
+                                <exclude>com/tonpackage/dto/*</exclude>
+                                <!-- Ou une classe spécifique -->
+                                <exclude>com/tonpackage/dto/MyDto.class</exclude>
+                            </excludes>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
+
 
             <!-- ✅ Failsafe plugin pour tests d'intégration *IT.java -->
             <plugin>

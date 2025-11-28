@@ -10,13 +10,14 @@ import com.ines.safetynet1.service.dto.FireStationCoverageDto;
 import com.ines.safetynet1.service.dto.PersonInfoDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-
+@SpringBootTest
 class FireStationServiceTest {
 
     private FireStationRepository repository;
@@ -135,5 +136,64 @@ class FireStationServiceTest {
         assertEquals(1, coverage.getChildren());
         assertEquals(1, coverage.getAdults());
     }
+    @Test
+    void getAllFireStations_returnsList() {
+        FireStation fs1 = new FireStation();
+        fs1.setAddress("A1");
+        fs1.setStation("1");
+
+        FireStation fs2 = new FireStation();
+        fs2.setAddress("A2");
+        fs2.setStation("2");
+
+        List<FireStation> mockList = List.of(fs1, fs2);
+
+        when(repository.findAll()).thenReturn(mockList);
+
+        List<FireStation> result = service.getAllFireStations();
+
+        assertNotNull(result);
+        assertEquals(2, result.size());
+        verify(repository, times(1)).findAll();
+    }
+    @Test
+    void createFireStation_savesFireStation() {
+        FireStation fs = new FireStation();
+        fs.setAddress("ABC");
+        fs.setStation("9");
+
+        when(repository.save(fs)).thenReturn(fs);
+
+        FireStation result = service.createFireStation(fs);
+
+        assertNotNull(result);
+        assertEquals("ABC", result.getAddress());
+        assertEquals("9", result.getStation());
+        verify(repository, times(1)).save(fs);
+    }
+    @Test
+    void updateFireStation_updatesCorrectly() {
+        FireStation newFs = new FireStation();
+        newFs.setAddress("ABC");
+        newFs.setStation("10");
+
+        when(repository.update("ABC", newFs)).thenReturn(newFs);
+
+        FireStation result = service.updateFireStation("ABC", newFs);
+
+        assertNotNull(result);
+        assertEquals("10", result.getStation());
+        verify(repository, times(1)).update("ABC", newFs);
+    }
+    @Test
+    void deleteFireStation_returnsTrue() {
+        when(repository.delete("ABC", "5")).thenReturn(true);
+
+        boolean result = service.deleteFireStation("ABC", "5");
+
+        assertTrue(result);
+        verify(repository, times(1)).delete("ABC", "5");
+    }
+
 }
 

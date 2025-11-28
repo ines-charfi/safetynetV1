@@ -89,7 +89,7 @@ public class FireStationService {
             }
         }
 
-        // 2. Trouver les habitants de ces adresses
+        //  Trouver les habitants de ces adresses
         List<PersonInfoDto> residents = new ArrayList<>();
         int adults = 0;
         int children = 0;
